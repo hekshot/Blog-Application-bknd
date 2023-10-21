@@ -5,9 +5,12 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.skill.bucks.exceptions.*;
+import com.skill.bucks.config.AppConstants;
+import com.skill.bucks.entities.Role;
 import com.skill.bucks.entities.User;
 import com.skill.bucks.payloads.UserDto;
 import com.skill.bucks.repositories.*;
@@ -21,6 +24,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
 	
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -96,6 +105,24 @@ public class UserServiceImpl implements UserService {
 //		userDto.setAbout(user.getAbout());
 //		userDto.setPassword(user.getPassword());
 		return userDto;
+	}
+
+	@Override
+	public UserDto registerNewUser(UserDto userDto) {
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		
+		//saving encoded password
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		
+		//assigning roles
+		Role role = this.roleRepo.findById(AppConstants.NORMAL_USER).get();
+		user.getRoles().add(role);
+		
+		User newUser = this.userRepo.save(user);
+		
+		
+		return this.modelMapper.map(newUser, UserDto.class);
 	}
 
 }

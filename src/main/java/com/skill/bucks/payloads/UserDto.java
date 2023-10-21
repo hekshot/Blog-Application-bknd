@@ -1,6 +1,9 @@
 package com.skill.bucks.payloads;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 //import jakarta.validation.constraints.Pattern;
@@ -30,5 +33,7 @@ public class UserDto { // user Data Transfer Object it will send data to UserSer
 	
 	@NotEmpty
 	private String about;
+	
+	private Set<RoleDto> roles = new HashSet<>(); 
 	
 }

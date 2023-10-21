@@ -5,6 +5,8 @@ import java.util.List;
 import com.skill.bucks.payloads.UserDto;
 
 public interface UserService {
+	
+	UserDto registerNewUser(UserDto user);
 
 	UserDto createUser(UserDto user);
 	
