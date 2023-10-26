@@ -2,8 +2,13 @@ package com.skill.bucks.services;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.skill.bucks.entities.User;
 import com.skill.bucks.payloads.UserDto;
 
+@Service
 public interface UserService {
 	
 	UserDto registerNewUser(UserDto user);
@@ -17,5 +22,6 @@ public interface UserService {
 	List<UserDto> getAllUsers();
 	
 	void deleteUser(Integer userId);
+	
 	
 }

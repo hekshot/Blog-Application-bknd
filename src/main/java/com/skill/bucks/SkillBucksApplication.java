@@ -18,8 +18,8 @@ import com.skill.bucks.repositories.RoleRepo;
 @SpringBootApplication
 public class SkillBucksApplication implements CommandLineRunner{
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private RoleRepo roleRepo;
@@ -35,7 +35,7 @@ public class SkillBucksApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(this.passwordEncoder.encode("123"));
+		//System.out.println(this.passwordEncoder.encode("123"));
 		
 		try {
 			
@@ -52,7 +52,7 @@ public class SkillBucksApplication implements CommandLineRunner{
 			List<Role> result = this.roleRepo.saveAll(roles);
 			
 			result.forEach(r->{
-				System.out.println(r.getName());
+				//System.out.println(r.getName());
 			});
 			
 		} catch (Exception e) {

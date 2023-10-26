@@ -24,6 +24,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,16 +42,20 @@ public class User implements UserDetails {
 	private int id;
 	
 	@Column(name="user_name", nullable = false)
+	//@NotBlank(message = "Name is required")
 	private String name;
 	
-	
+	@Column(unique = true)
+	//@NotBlank(message = "Email is required")
+	//@Email(message = "Invalid email format")
 	private String email;
 	
-	
+	//@NotBlank(message = "Password is required")
 	private String password;
 	
 	
 	private String about;
+	
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Post> posts = new ArrayList<>();
